@@ -25,7 +25,7 @@ export default function ColorPage() {
 
                     <a id="btnClear" className="button">Clear Color</a>
 
-                    <a id="btnDownload" className="button">Download SVG</a>
+                    <a id="btnDownload" className="button">Upload PNG</a>
                 </div>
             </div>
 
@@ -65,13 +65,38 @@ export default function ColorPage() {
                     TweenMax.to(event.target, 0.05, rollover);
                 }
 
-                function download() {
-                    const svgInfo = document.querySelector('svg').outerHTML;
-                    const dl = document.createElement("a");
-                    dl.setAttribute("href", "data:image/svg+xml;base64," + btoa(svgInfo));
-                    dl.setAttribute("download", "coloringpage.svg");
-                    dl.click();
+               function download() {
+                    const svg = document.querySelector("svg");
+                    const canvas = document.createElement("canvas");
+                    const ctx = canvas.getContext("2d");
+                    const svgData = new XMLSerializer().serializeToString(svg);
+                    const img = new Image();
+                    const svgBlob = new Blob([svgData], { type: "image/svg+xml;charset=utf-8" });
+                    const url = URL.createObjectURL(svgBlob);
+
+                    img.onload = function () {
+                        canvas.width = img.width;
+                        canvas.height = img.height;
+                        ctx.drawImage(img, 0, 0);
+                        URL.revokeObjectURL(url);
+
+                        canvas.toBlob((blob) => {
+                            const formData = new FormData();
+                            formData.append("image", blob, "coloringpage.png");
+
+                            fetch("http://localhost:5000/upload", {
+                                method: "POST",
+                                body: formData,
+                            })
+                            .then((res) => res.json())
+                            .then((data) => console.log("Uploaded:", data.file))
+                            .catch((err) => console.error("Upload failed:", err));
+                        }, "image/png");
+                    };
+                    img.src = url;
                 }
+
+
 
                 function svgRandom() {
                     svgColor.forEach((element) => {
