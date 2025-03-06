@@ -2,8 +2,12 @@
 import Script from "next/script";
 import { useState, useEffect } from "react";
 
+
 export default function ColorPage() {
-    const [svgUrl, setSvgUrl] = useState('https://assets.codepen.io/5936329/Coloringbook1.svg');
+    //const [svgUrl, setSvgUrl] = useState('https://assets.codepen.io/5936329/Coloringbook1.svg');
+    
+ const testVector = "https://raw.githubusercontent.com/zouevelyn/ekua/refs/heads/main/app/color-test/Not_Today.svg";
+    const [svgUrl, setSvgUrl] = useState(testVector);
 
     useEffect(() => {
         makeSVGcolor(svgUrl);
@@ -49,7 +53,7 @@ export default function ColorPage() {
                     chosenColor = event.target.dataset.color;
                     console.log(chosenColor);
                     TweenMax.to(colorHolder, fillSpeed, { backgroundColor: chosenColor });
-                }
+                }   
 
                 function swatchMove(event) {
                     const moveTo = (event.type === 'mouseenter') ? swatchUp : swatchDown;
@@ -151,6 +155,8 @@ export default function ColorPage() {
                         .then(response => response.text())
                         .then(svgText => {
                             mainHolder.innerHTML = svgText;
+                            console.log("svgText:")
+                            console.log(svgText);
                             svgObject = document.querySelector('svg');
                             svgColor = Array.from(svgObject.querySelectorAll('g#Color > *'));
                             svgOutline = Array.from(svgObject.querySelectorAll('g:nth-child(1) > *'));
