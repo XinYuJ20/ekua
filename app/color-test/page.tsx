@@ -6,7 +6,13 @@ import { useState, useEffect } from "react";
 export default function ColorPage() {
     //const [svgUrl, setSvgUrl] = useState('https://assets.codepen.io/5936329/Coloringbook1.svg');
     
- const testVector = "https://raw.githubusercontent.com/zouevelyn/ekua/refs/heads/main/app/color-test/Not_Today.svg";
+    //joy's test piece: 
+    // https://raw.githubusercontent.com/zouevelyn/ekua/refs/heads/main/app/color-test/color-test1-05.svg
+    //fish test piece: 
+    // https://raw.githubusercontent.com/zouevelyn/ekua/refs/heads/main/app/color-test/Fish%20Test.svg
+    // cat test piece: 
+    // https://raw.githubusercontent.com/zouevelyn/ekua/refs/heads/main/app/color-test/Not_Today.svg
+    const testVector = "https://raw.githubusercontent.com/zouevelyn/ekua/refs/heads/main/app/color-test/color-test1-05.svg";
     const [svgUrl, setSvgUrl] = useState(testVector);
 
     useEffect(() => {
@@ -87,7 +93,7 @@ export default function ColorPage() {
                             const formData = new FormData();
                             formData.append("image", blob, "coloringpage.png");
 
-                            fetch("https://ae39-2620-8d-8000-1084-380c-c0f3-354d-50d6.ngrok-free.app", {
+                            fetch("http://localhost:5000/upload", {
                                 method: "POST",
                                 body: formData,
                             })
@@ -119,7 +125,7 @@ export default function ColorPage() {
                     console.log('makeSwatches');
                     const swatchHolder = document.createElement('ol');
                     swatchHolder.className = 'swatchHolder';
-                    swatchHolder.style.position = 'absolute';
+                    swatchHolder.style.position = 'fixed';
                     swatchHolder.style.bottom = '0px';
                     swatchHolder.style.right = '0px';
                     swatchHolder.style.listStyleType = 'none';
