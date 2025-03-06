@@ -21,11 +21,11 @@ export default function ColorPage() {
                 <div className="held" id="ActivityDIV"></div>
 
                 <div className="held">
-                    <a id="btnRandom" className="button">Random Color</a>
+                    <a id="btnRandom" className="button">Randomize</a>
 
-                    <a id="btnClear" className="button">Clear Color</a>
+                    <a id="btnClear" className="button">Clear</a>
 
-                    <a id="btnDownload" className="button">Upload PNG</a>
+                    <a id="btnDownload" className="button">Upload</a>
                 </div>
             </div>
 
@@ -48,7 +48,6 @@ export default function ColorPage() {
                 function swatchClick(event) {
                     chosenColor = event.target.dataset.color;
                     console.log(chosenColor);
-                    TweenMax.to(colorHolder, fillSpeed, { backgroundColor: chosenColor });
                 }
 
                 function swatchMove(event) {
@@ -84,7 +83,7 @@ export default function ColorPage() {
                             const formData = new FormData();
                             formData.append("image", blob, "coloringpage.png");
 
-                            fetch("http://localhost:5000/upload", {
+                            fetch("https://ae39-2620-8d-8000-1084-380c-c0f3-354d-50d6.ngrok-free.app", {
                                 method: "POST",
                                 body: formData,
                             })
@@ -93,6 +92,7 @@ export default function ColorPage() {
                             .catch((err) => console.error("Upload failed:", err));
                         }, "image/png");
                     };
+
                     img.src = url;
                 }
 
@@ -117,26 +117,28 @@ export default function ColorPage() {
                     swatchHolder.className = 'swatchHolder';
                     swatchHolder.style.position = 'absolute';
                     swatchHolder.style.bottom = '0px';
-                    // swatchHolder.style.margin = 'auto';
-                    // swatchHolder.style.left = '0px';
                     swatchHolder.style.right = '0px';
                     swatchHolder.style.listStyleType = 'none';
                     swatchHolder.style.textAlign = 'center';
                     swatchHolder.style.letterSpacing = '1px';
                     swatchHolder.style.fontFamily = 'Arial';
-                    swatchHolder.style.display = 'inline-block';
+                    swatchHolder.style.display = 'flex';  // Changed to flexbox
+                    swatchHolder.style.flexDirection = 'row';  // Makes it horizontal
+                    swatchHolder.style.flexWrap = 'wrap';  // Allows wrapping if needed
+                    swatchHolder.style.justifyContent = 'center'; // Centers the swatches
+                    swatchHolder.style.alignItems = 'center';
                     swatchHolder.style.padding = '15px';
-                    swatchHolder.style.width = '160px';
-                    swatchHolder.style.borderRadius = '35px 35px 35px 35px';
+                    swatchHolder.style.width = '100vw';  // Adjust width dynamically
+                    swatchHolder.style.maxWidth = '100%'; // Prevents overflow
+                    swatchHolder.style.borderRadius = '20px';
                     swatchHolder.style.color = '#232323';
-                    swatchHolder.style.backgroundImage = 'url("https://assets.codepen.io/5936329/background-code.png")';
+                    swatchHolder.style.color = '#232323';
                     swatchHolder.style.border = '0px';
-                    document.body.appendChild(swatchHolder);
+                    document.querySelector('.holder').appendChild(swatchHolder);
+
 
                     colorHolder = document.createElement('li');
-                    colorHolder.className = 'colorHolder';
-                    colorHolder.textContent = 'Color Palette';
-                    colorHolder.style.backgroundColor = chosenColor;
+                    colorHolder.style.backgroundcolor = "white";
                     colorHolder.style.width = '100%';
                     colorHolder.style.lineHeight = '100%';
                     colorHolder.style.padding = '10px 0px';
