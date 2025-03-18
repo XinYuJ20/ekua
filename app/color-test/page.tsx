@@ -3,7 +3,7 @@ import Script from "next/script";
 import { useState, useEffect } from "react";
 
 
-export default function ColorPage() {
+export default function ColorPage({imgUrl}: {imgUrl: string}) {
     //const [svgUrl, setSvgUrl] = useState('https://assets.codepen.io/5936329/Coloringbook1.svg');
     
     //joy's test piece: 
