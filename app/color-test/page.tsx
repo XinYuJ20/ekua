@@ -54,11 +54,29 @@ export default function ColorPage() {
                 let chosenColor = '#FFFFFF';
                 const colors = ['#1d561c', '#699b68', '#61ce73', '#afe89a', '#e9edb2', '#efe77b', '#f4d24f', '#bc9d71', '#08316d', '#265a8b', '#5da4ba', '#7ad0d3', '#e7b6af', '#faca9a', '#fe8d7d', '#9b6959', '#552056', '#874a9e', '#b595e5', '#b33a6d', '#e2649e', '#ec8a8e', '#fd6d4a', '#7c373f', '#ff5733', '#33ff57', '#3357ff', '#ff33a8', '#a833ff', '#33fff5', '#ffb833', '#ff3333', '#3333ff', '#ffffff', '#000000'];
                 let closeOffset;
+                
+                let selectedColor = null;
 
                 function swatchClick(event) {
                     chosenColor = event.target.dataset.color;
                     console.log(chosenColor);
+
+                    if (selectedColor) {
+                        const existingBox = selectedColor.querySelector('.white-box');
+                        if (existingBox) {
+                            existingBox.remove();
+                        }
+                    }
+
+                    // Set the new selected swatch
+                    selectedColor = event.target;
+
+                    // Create and append the white box to the selected color swatch
+                    const whiteBox = document.createElement('div');
+                    whiteBox.className = 'white-box';
+                    selectedColor.appendChild(whiteBox);
                 }
+
 
                 function swatchMove(event) {
                     const moveTo = (event.type === 'mouseenter') ? swatchUp : swatchDown;
@@ -69,10 +87,10 @@ export default function ColorPage() {
                     TweenMax.to(event.target, fillSpeed, { fill: chosenColor });
                 }
 
-                function colorRollover(event) {
-                    const rollover = (event.type === 'mouseenter') ? { scale: 1.2 } : { scale: 1 };
-                    TweenMax.to(event.target, 0.05, rollover);
-                }
+                // function colorRollover(event) {
+                //     const rollover = (event.type === 'mouseenter') ? { scale: 1.2 } : { scale: 1 };
+                //     TweenMax.to(event.target, 0.05, rollover);
+                // }
 
                function download() {
                     const svg = document.querySelector("svg");
@@ -93,7 +111,7 @@ export default function ColorPage() {
                             const formData = new FormData();
                             formData.append("image", blob, "coloringpage.png");
 
-                            fetch("http://localhost:5000/upload", {
+                            fetch("https://615b-2620-8d-8000-1084-944d-3530-2fd9-f20b.ngrok-free.app/upload", {
                                 method: "POST",
                                 body: formData,
                             })
@@ -148,7 +166,8 @@ export default function ColorPage() {
 
 
                     colorHolder = document.createElement('li');
-                    colorHolder.style.backgroundcolor = "white";
+                    colorHolder.className = 'colorHolder';
+                    colorHolder.style.backgroundColor = 'chosenColor';
                     colorHolder.style.width = '100%';
                     colorHolder.style.lineHeight = '100%';
                     colorHolder.style.padding = '10px 0px';
@@ -166,10 +185,10 @@ export default function ColorPage() {
                         swatch.style.margin = '2px';
                         swatch.style.display = 'inline-block';
                         swatch.style.cursor = 'pointer';
-                        swatch.style.borderRadius = '20px';
+                        swatch.style.borderRadius = '0px';
                         swatch.addEventListener('click', swatchClick);
-                        swatch.addEventListener('mouseenter', colorRollover);
-                        swatch.addEventListener('mouseleave', colorRollover);
+                        // swatch.addEventListener('mouseenter', colorRollover);
+                        // swatch.addEventListener('mouseleave', colorRollover);
                         swatchHolder.appendChild(swatch);
                     });
 
