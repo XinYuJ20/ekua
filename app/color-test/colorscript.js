@@ -9,7 +9,7 @@ let svgObject, svgOutline, svgColor;
 let swatchUp, swatchDown;
 const fillSpeed = 0.15;
 let chosenColor = '#FFFFFF';
-const colors = ['#1d561c', '#699b68', '#61ce73', '#afe89a', '#e9edb2', '#efe77b', '#f4d24f', '#bc9d71', '#08316d', '#265a8b', '#5da4ba', '#7ad0d3', '#e7b6af', '#faca9a', '#fe8d7d', '#9b6959', '#552056', '#874a9e', '#b595e5', '#b33a6d', '#e2649e', '#ec8a8e', '#fd6d4a', '#7c373f', '#ff5733', '#33ff57', '#3357ff', '#ff33a8', '#a833ff', '#33fff5', '#ffb833', '#ff3333', '#3333ff', '#ffffff', '#000000'];
+const colors = ['#D60032', '#FFE208', '#C20ADD', '#00D420', '#2EFFEF', '#FF6700', '#283CEA' ];
 let closeOffset;
 
 function swatchClick(event) {
