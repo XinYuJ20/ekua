@@ -6,7 +6,7 @@ export default function PatternList({patterns}: {patterns: Pattern[]}) {
     return (
         <div>
             {patterns.map(pattern => (
-                <Link key={pattern.id} href="/color-test">
+                <Link key={pattern.id} href={"/patterns/" + pattern.id}>
                     <Image
                         src={pattern.imageUrl}
                         width={pattern.imageWidth}
