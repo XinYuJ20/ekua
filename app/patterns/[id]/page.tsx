@@ -3,11 +3,17 @@ import Script from "next/script";
 import { useState, useEffect } from "react";
 import { patterns } from "@/app/pattern_data";
 import { use } from 'react';
+import NotFoundPage from "@/app/not-found";
 
 export default function ColorPage( { params }: { params: Promise<{ id: string }> } ) {
     const { id } = use(params); 
     console.log(params)
     const pattern = patterns.find(p => p.id == id);
+
+    if(!pattern) {
+         return <NotFoundPage/>
+    }
+
     const patternUrl = pattern?.imageUrl
     //const testVector = "https://raw.githubusercontent.com/zouevelyn/ekua/refs/heads/main/app/color-test/color-test1-05.svg";
     const [svgUrl, setSvgUrl] = useState(patternUrl);
