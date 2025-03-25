@@ -38,7 +38,7 @@ export default function ColorPage( { params }: { params: Promise<{ id: string }>
 
             <Script>
                 {`
-                //console.clear();
+                console.clear();
                 console.log('svgColor');
 
                 let mainHolder, colorHolder;
@@ -49,7 +49,7 @@ export default function ColorPage( { params }: { params: Promise<{ id: string }>
                 let swatchUp, swatchDown;
                 const fillSpeed = 0.15;
                 let chosenColor = '#FFFFFF';
-                const colors = ['#1d561c', '#699b68', '#61ce73', '#afe89a', '#e9edb2', '#efe77b', '#f4d24f', '#bc9d71', '#08316d', '#265a8b', '#5da4ba', '#7ad0d3', '#e7b6af', '#faca9a', '#fe8d7d', '#9b6959', '#552056', '#874a9e', '#b595e5', '#b33a6d', '#e2649e', '#ec8a8e', '#fd6d4a', '#7c373f', '#ff5733', '#33ff57', '#3357ff', '#ff33a8', '#a833ff', '#33fff5', '#ffb833', '#ff3333', '#3333ff', '#ffffff', '#000000'];
+                const colors = ['#D60032', '#FFE208', '#C20ADD', '#00D420', '#2EFFEF', '#FF6700', '#283CEA' ];
                 let closeOffset;
                 
                 let selectedColor = null;
@@ -108,12 +108,19 @@ export default function ColorPage( { params }: { params: Promise<{ id: string }>
                             const formData = new FormData();
                             formData.append("image", blob, "coloringpage.png");
 
-                            fetch("https://615b-2620-8d-8000-1084-944d-3530-2fd9-f20b.ngrok-free.app/upload", {
+                            fetch("https://8411-2620-8d-8000-1084-30c2-9ba5-834e-8f52.ngrok-free.app/upload", {
                                 method: "POST",
                                 body: formData,
                             })
                             .then((res) => res.json())
-                            .then((data) => console.log("Uploaded:", data.file))
+                            .then((data) => {
+                                console.log("Uploaded:", data.file);
+                                colorHolder.textContent = 'Uploaded Successfully!';
+
+                                setTimeout(() => {
+                                    colorHolder.textContent = ''; // Clear the text
+                                }, 3000); // 3000 milliseconds (3 seconds)
+                            })   
                             .catch((err) => console.error("Upload failed:", err));
                         }, "image/png");
                     };
@@ -177,9 +184,9 @@ export default function ColorPage( { params }: { params: Promise<{ id: string }>
                         const swatch = document.createElement('li');
                         swatch.style.backgroundColor = color;
                         swatch.dataset.color = color;
-                        swatch.style.height = '25px';
-                        swatch.style.width = '25px';
-                        swatch.style.margin = '2px';
+                        swatch.style.height = '50px';
+                        swatch.style.width = '50px';
+                        swatch.style.margin = '0px';
                         swatch.style.display = 'inline-block';
                         swatch.style.cursor = 'pointer';
                         swatch.style.borderRadius = '0px';
@@ -204,8 +211,8 @@ export default function ColorPage( { params }: { params: Promise<{ id: string }>
                         .then(response => response.text())
                         .then(svgText => {
                             mainHolder.innerHTML = svgText;
-                            //console.log("svgText:")
-                            //console.log(svgText);
+                            console.log("svgText:")
+                            console.log(svgText);
                             svgObject = document.querySelector('svg');
                             svgColor = Array.from(svgObject.querySelectorAll('g#Color > *'));
                             svgOutline = Array.from(svgObject.querySelectorAll('g:nth-child(1) > *'));
