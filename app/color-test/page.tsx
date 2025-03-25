@@ -1,6 +1,7 @@
 'use client'
 import Script from "next/script";
-import { useState, useEffect } from "react";
+import { useState, useEffect} from "react";
+
 
 
 export default function ColorPage({imgUrl}: {imgUrl: string}) {
@@ -111,12 +112,19 @@ export default function ColorPage({imgUrl}: {imgUrl: string}) {
                             const formData = new FormData();
                             formData.append("image", blob, "coloringpage.png");
 
-                            fetch("https://615b-2620-8d-8000-1084-944d-3530-2fd9-f20b.ngrok-free.app/upload", {
+                            fetch("https://8411-2620-8d-8000-1084-30c2-9ba5-834e-8f52.ngrok-free.app/upload", {
                                 method: "POST",
                                 body: formData,
                             })
                             .then((res) => res.json())
-                            .then((data) => console.log("Uploaded:", data.file))
+                            .then((data) => {
+                                console.log("Uploaded:", data.file);
+                                colorHolder.textContent = 'Uploaded Successfully!';
+
+                                setTimeout(() => {
+                                    colorHolder.textContent = ''; // Clear the text
+                                }, 3000); // 3000 milliseconds (3 seconds)
+                            })   
                             .catch((err) => console.error("Upload failed:", err));
                         }, "image/png");
                     };
