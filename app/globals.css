@@ -121,9 +121,10 @@ body {
   text-align: center;
   letter-spacing: 1px;
   font-family: Arial;
-  display: inline-block;
+  display: flex;
   padding: 15px;
-  width: 260px;
+  width: 100%;
+  max-width: 100%;
   border-radius: 35px 35px 0px 0px;
   color: #232323;
   border: 0px;
