@@ -74,7 +74,7 @@ export default function ColorPage( { params }: { params: Promise<{ id: string }>
                     // Set the new selected swatch
                     selectedColor = event.target;
 
-                    // Create and append the white box to the selected color swatch
+                  
                     const whiteBox = document.createElement('div');
                     whiteBox.className = 'white-box';
                     selectedColor.appendChild(whiteBox);
@@ -114,18 +114,20 @@ export default function ColorPage( { params }: { params: Promise<{ id: string }>
                             const formData = new FormData();
                             formData.append("image", blob, "coloringpage.png");
 
-                            fetch("https://8411-2620-8d-8000-1084-30c2-9ba5-834e-8f52.ngrok-free.app/upload", {
+                            fetch("https://109c-2620-8d-8000-1084-30c2-9ba5-834e-8f52.ngrok-free.app/upload", {
                                 method: "POST",
                                 body: formData,
                             })
                             .then((res) => res.json())
                             .then((data) => {
-                                console.log("Uploaded:", data.file);
-                                colorHolder.textContent = 'Uploaded Successfully!';
+                                window.location.href = "/confirmation";  
 
-                                setTimeout(() => {
-                                    colorHolder.textContent = ''; // Clear the text
-                                }, 3000); // 3000 milliseconds (3 seconds)
+                                // console.log("Uploaded:", data.file);
+                                // colorHolder.textContent = 'Uploaded Successfully!';
+
+                                // setTimeout(() => {
+                                //     colorHolder.textContent = ''; // Clear the text
+                                // }, 3000); // 3000 milliseconds (3 seconds)
                             })   
                             .catch((err) => console.error("Upload failed:", err));
                         }, "image/png");
@@ -229,7 +231,9 @@ export default function ColorPage( { params }: { params: Promise<{ id: string }>
 
                 btnRandom.addEventListener('click', svgRandom);
                 btnClear.addEventListener('click', svgClear);
-                btnDownload.addEventListener('click', download);
+                btnDownload.addEventListener('click', () => {
+                    download();
+                });
 
                 `}
             </Script>
