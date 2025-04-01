@@ -114,20 +114,13 @@ export default function ColorPage( { params }: { params: Promise<{ id: string }>
                             const formData = new FormData();
                             formData.append("image", blob, "coloringpage.png");
 
-                            fetch("https://109c-2620-8d-8000-1084-30c2-9ba5-834e-8f52.ngrok-free.app/upload", {
+                            fetch(" https://570d-2620-8d-8000-1084-d257-6d31-3ae3-fcc8.ngrok-free.app/upload", {
                                 method: "POST",
                                 body: formData,
                             })
                             .then((res) => res.json())
                             .then((data) => {
                                 window.location.href = "/confirmation";  
-
-                                // console.log("Uploaded:", data.file);
-                                // colorHolder.textContent = 'Uploaded Successfully!';
-
-                                // setTimeout(() => {
-                                //     colorHolder.textContent = ''; // Clear the text
-                                // }, 3000); // 3000 milliseconds (3 seconds)
                             })   
                             .catch((err) => console.error("Upload failed:", err));
                         }, "image/png");
