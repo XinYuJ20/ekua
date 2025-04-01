@@ -10,17 +10,22 @@ export default function Home() {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen p-8">
-      <h1 className="text-5xl font-bold mb-8 text-black">Welcome to Our Website!</h1>
-      <p className="text-lg mb-4 text-black">We are excited to have you here.</p>
-      <p className="text-lg mb-4 text-black">Explore the content and discover more.</p>
-   
-      <button
-        onClick={handleNavigate}
-        className="bg-blue-500 text-white py-2 px-6 rounded-full text-lg"
-      >
-        Create a New Pattern!
-      </button>
-    </div>
+    <div className="flex flex-col items-center justify-center min-h-screen p-8 gap-8">
+  <h1 className="text-9xl font-extrabold text-black tracking-wide uppercase text-center">
+    EK<br />UA
+  </h1>
+
+  <p className="text-m text-black text-center">
+    Thank you for creating a pattern. Enjoy the show!
+  </p>
+
+  <button
+    onClick={handleNavigate}
+    className="fixed bottom-0 left-0 w-full bg-black text-white py-4 text-center text-lg font-bold"
+  >
+    CREATE ANOTHER PATTERN
+  </button>
+</div>
+
   );
 }
