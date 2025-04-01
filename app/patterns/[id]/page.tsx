@@ -54,7 +54,7 @@ export default function ColorPage( { params }: { params: Promise<{ id: string }>
                 let svgObject, svgOutline, svgColor;
                 let swatchUp, swatchDown;
                 const fillSpeed = 0.15;
-                let chosenColor = '#FFFFFF';
+                let chosenColor = '#D60032';
                 const colors = ['#D60032', '#FFE208', '#C20ADD', '#00D420', '#2EFFEF', '#FF6700', '#283CEA' ];
                 let closeOffset;
                 
@@ -135,7 +135,6 @@ export default function ColorPage( { params }: { params: Promise<{ id: string }>
                 }
 
 
-
                 function svgRandom() {
                     svgColor.forEach((element) => {
                         const randomNum = Math.floor(Math.random() * colors.length);
@@ -177,7 +176,7 @@ export default function ColorPage( { params }: { params: Promise<{ id: string }>
 
                     colorHolder = document.createElement('li');
                     colorHolder.className = 'colorHolder';
-                    colorHolder.style.backgroundColor = 'chosenColor';
+                    colorHolder.style.backgroundColor = '#FFFFFF';
                     colorHolder.style.width = '100%';
                     colorHolder.style.lineHeight = '100%';
                     colorHolder.style.padding = '10px 0px';

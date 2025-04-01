@@ -4,7 +4,7 @@ import Link from 'next/link';
 
 export default function PatternList({patterns}: {patterns: Pattern[]}) {
     return (
-        <div>
+        <div >
             {patterns.map(pattern => (
                 <Link key={pattern.id} href={"/patterns/" + pattern.id}>
                     <Image
@@ -12,6 +12,7 @@ export default function PatternList({patterns}: {patterns: Pattern[]}) {
                         width={pattern.imageWidth}
                         height={pattern.imageHeight}
                         alt={pattern.name}
+                        className="mb-8"
                     />
                 </Link>
             ))}

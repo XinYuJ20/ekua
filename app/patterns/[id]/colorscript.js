@@ -1,6 +1,6 @@
+
 //console.clear();
 console.log('svgColor');
-
 let mainHolder, colorHolder;
 const btnRandom = document.getElementById('btnRandom');
 const btnClear = document.getElementById('btnClear');
@@ -8,11 +8,16 @@ const btnDownload = document.getElementById('btnDownload');
 let svgObject, svgOutline, svgColor;
 let swatchUp, swatchDown;
 const fillSpeed = 0.15;
-let chosenColor = '#FFFFFF';
+let chosenColor = '#D60032';
+console.log(chosenColor);
 const colors = ['#D60032', '#FFE208', '#C20ADD', '#00D420', '#2EFFEF', '#FF6700', '#283CEA'];
 let closeOffset;
 
 let selectedColor = null;
+
+btnRandom.addEventListener('click', svgRandom);
+btnClear.addEventListener('click', svgClear);
+btnDownload.addEventListener('click', download);
 
 function swatchClick(event) {
     chosenColor = event.target.dataset.color;
@@ -41,6 +46,7 @@ function swatchMove(event) {
 }
 
 function colorMe(event) {
+    console.log("clicked!")
     TweenMax.to(event.target, fillSpeed, { fill: chosenColor });
 }
 
@@ -49,7 +55,7 @@ function colorMe(event) {
 //     TweenMax.to(event.target, 0.05, rollover);
 // }
 
-function download() {
+export function download() {
     const svg = document.querySelector("svg");
     const canvas = document.createElement("canvas");
     const ctx = canvas.getContext("2d");
@@ -90,14 +96,14 @@ function download() {
 
 
 
-function svgRandom() {
+export function svgRandom() {
     svgColor.forEach((element) => {
         const randomNum = Math.floor(Math.random() * colors.length);
         TweenMax.to(element, fillSpeed, { fill: colors[randomNum] });
     });
 }
 
-function svgClear() {
+export function svgClear() {
     svgColor.forEach((element) => {
         TweenMax.to(element, fillSpeed, { fill: "#FFF" });
     });
@@ -131,7 +137,7 @@ function makeSwatches() {
 
     colorHolder = document.createElement('li');
     colorHolder.className = 'colorHolder';
-    colorHolder.style.backgroundColor = 'chosenColor';
+    colorHolder.style.backgroundColor = '#FFFFFF';
     colorHolder.style.width = '100%';
     colorHolder.style.lineHeight = '100%';
     colorHolder.style.padding = '10px 0px';
@@ -154,6 +160,7 @@ function makeSwatches() {
         // swatch.addEventListener('mouseenter', colorRollover);
         // swatch.addEventListener('mouseleave', colorRollover);
         swatchHolder.appendChild(swatch);
+
     });
 
     const swatchHeight = colorHolder.offsetHeight + colorHolder.offsetTop;
@@ -165,7 +172,7 @@ function makeSwatches() {
     // swatchDown = { css: { bottom: closeOffset } };
 }
 
-function makeSVGcolor(svgURL) {
+export function makeSVGcolor(svgURL) {
     mainHolder = document.getElementById('ActivityDIV');
     fetch(svgURL)
         .then(response => response.text())
@@ -179,8 +186,6 @@ function makeSVGcolor(svgURL) {
             svgColor.forEach(el => el.addEventListener('click', colorMe));
             makeSwatches();
         });
+
 }
 
-btnRandom.addEventListener('click', svgRandom);
-btnClear.addEventListener('click', svgClear);
-btnDownload.addEventListener('click', download);
