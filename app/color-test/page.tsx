@@ -52,7 +52,7 @@ export default function ColorPage({imgUrl}: {imgUrl: string}) {
                 let svgObject, svgOutline, svgColor;
                 let swatchUp, swatchDown;
                 const fillSpeed = 0.15;
-                let chosenColor = '#D60032';
+                let chosenColor = '#FFFFFF';
                 const colors = ['#D60032', '#FFE208', '#C20ADD', '#00D420', '#2EFFEF', '#FF6700', '#283CEA' ];
                 let closeOffset;
                 
@@ -112,7 +112,7 @@ export default function ColorPage({imgUrl}: {imgUrl: string}) {
                             const formData = new FormData();
                             formData.append("image", blob, "coloringpage.png");
 
-                            fetch("https://8411-2620-8d-8000-1084-30c2-9ba5-834e-8f52.ngrok-free.app/upload", {
+                            fetch("http://localhost:5000/upload", {
                                 method: "POST",
                                 body: formData,
                             })
@@ -175,7 +175,7 @@ export default function ColorPage({imgUrl}: {imgUrl: string}) {
 
                     colorHolder = document.createElement('li');
                     colorHolder.className = 'colorHolder';
-                    colorHolder.style.backgroundColor = '#FFFFFF';
+                    colorHolder.style.backgroundColor = 'chosenColor';
                     colorHolder.style.width = '100%';
                     colorHolder.style.lineHeight = '100%';
                     colorHolder.style.padding = '10px 0px';
