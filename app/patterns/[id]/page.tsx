@@ -33,13 +33,13 @@ export default function ColorPage( { params }: { params: Promise<{ id: string }>
 
                 <div className="held" id="ActivityDIV"></div>
 
-                <div className="held">
+                {/* <div className="held">
                     <a id="btnRandom" className="button">Randomize</a>
 
                     <a id="btnClear" className="button">Clear</a>
 
                     <a id="btnDownload" className="button">Upload</a>
-                </div>
+                </div> */}
             </div>
 
             <Script>
@@ -48,9 +48,9 @@ export default function ColorPage( { params }: { params: Promise<{ id: string }>
                 console.log('svgColor');
 
                 let mainHolder, colorHolder;
-                const btnRandom = document.getElementById('btnRandom');
-                const btnClear = document.getElementById('btnClear');
-                const btnDownload = document.getElementById('btnDownload');
+                // const btnRandom = document.getElementById('btnRandom');
+                // const btnClear = document.getElementById('btnClear');
+                // const btnDownload = document.getElementById('btnDownload');
                 let svgObject, svgOutline, svgColor;
                 let swatchUp, swatchDown;
                 const fillSpeed = 0.15;

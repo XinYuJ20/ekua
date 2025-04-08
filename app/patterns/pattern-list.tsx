@@ -4,7 +4,7 @@ import Link from 'next/link';
 
 export default function PatternList({patterns}: {patterns: Pattern[]}) {
     return (
-        <div >
+        <div className="grid grid-flow-row grid-cols-2">
             {patterns.map(pattern => (
                 <Link key={pattern.id} href={"/patterns/" + pattern.id}>
                     <Image
