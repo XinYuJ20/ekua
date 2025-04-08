@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import { patterns } from "@/app/pattern_data";
 import { use } from 'react';
 import NotFoundPage from "@/app/not-found";
+import BottomNav from "@/app/bottom-nav";
 
 export default function ColorPage( { params }: { params: Promise<{ id: string }> } ) {
     const { id } = use(params); 
@@ -41,43 +42,67 @@ export default function ColorPage( { params }: { params: Promise<{ id: string }>
                     <a id="btnDownload" className="button">Upload</a>
                 </div> */}
             </div>
+            <BottomNav 
+                leftButText="BACK"
+                leftLink="/" 
+                rightButText="NEXT"
+                rightLink={"/" /*needs link to new page TT*/}></BottomNav>
 
             <Script>
                 {`
                 console.clear();
                 console.log('svgColor');
 
-                let mainHolder, colorHolder;
-                // const btnRandom = document.getElementById('btnRandom');
-                // const btnClear = document.getElementById('btnClear');
-                // const btnDownload = document.getElementById('btnDownload');
-                let svgObject, svgOutline, svgColor;
-                let swatchUp, swatchDown;
-                const fillSpeed = 0.15;
-                let chosenColor = '#D60032';
-                const colors = ['#D60032', '#FFE208', '#C20ADD', '#00D420', '#2EFFEF', '#FF6700', '#283CEA' ];
-                let closeOffset;
+                // var colorHolder, swatchHolder;
+                // var mainholder;
+
+                // // const btnRandom = document.getElementById('btnRandom');
+                // // const btnClear = document.getElementById('btnClear');
+                // // const btnDownload = document.getElementById('btnDownload');
+                // let svgObject, svgOutline, svgColor;
+                // let swatchUp, swatchDown;
+                // const fillSpeed = 0.15;
+                // let chosenColor = '#D60032';
+                // const colors = ['#D60032', '#FFE208', '#C20ADD', '#00D420', '#2EFFEF', '#FF6700', '#283CEA' ];
+                // let closeOffset;
                 
-                let selectedColor = null;
+                // let selectedColor = null;
+
+                if (!window._svgColorGlobals) {
+                window._svgColorGlobals = {
+                    mainHolder: null,
+                    colorHolder: null,
+                    swatchHolder: null,
+                    svgObject: null,
+                    svgOutline: null,
+                    svgColor: null,
+                    selectedColor: null,
+                    chosenColor: '#D60032',
+                    fillSpeed: 0.15,
+                    colors: ['#D60032', '#FFE208', '#C20ADD', '#00D420', '#2EFFEF', '#FF6700', '#283CEA'],
+                    closeOffset: null
+                };
+                }
+                var g = window._svgColorGlobals;
 
                 function swatchClick(event) {
-                    chosenColor = event.target.dataset.color;
-                    console.log(chosenColor);
+                    g.chosenColor = event.target.dataset.color;
+                    console.log(g.chosenColor);
 
-                    if (selectedColor) {
-                        const existingBox = selectedColor.querySelector('.white-box');
+                    if (g.selectedColor) {
+                        const existingBox = g.selectedColor.querySelector('.white-box');
                         if (existingBox) {
                             existingBox.remove();
                         }
                     }
 
                     // Set the new selected swatch
-                    selectedColor = event.target;
+                    g.selectedColor = event.target;
 
                   
                     const whiteBox = document.createElement('div');
                     whiteBox.className = 'white-box';
-                    selectedColor.appendChild(whiteBox);
+                    g.selectedColor.appendChild(whiteBox);
                 }
 
 
@@ -87,7 +112,7 @@ export default function ColorPage( { params }: { params: Promise<{ id: string }>
                 }
 
                 function colorMe(event) {
-                    TweenMax.to(event.target, fillSpeed, { fill: chosenColor });
+                    TweenMax.to(event.target, g.fillSpeed, { fill: g.chosenColor });
                 }
 
                 // function colorRollover(event) {
@@ -131,56 +156,56 @@ export default function ColorPage( { params }: { params: Promise<{ id: string }>
 
 
                 function svgRandom() {
-                    svgColor.forEach((element) => {
-                        const randomNum = Math.floor(Math.random() * colors.length);
-                        TweenMax.to(element, fillSpeed, { fill: colors[randomNum] });
+                    g.svgColor.forEach((element) => {
+                        const randomNum = Math.floor(Math.random() * g.colors.length);
+                        TweenMax.to(element, g.fillSpeed, { fill: g.colors[randomNum] });
                     });
                 }
 
                 function svgClear() {
-                    svgColor.forEach((element) => {
-                        TweenMax.to(element, fillSpeed, { fill: "#FFF" });
+                    g.svgColor.forEach((element) => {
+                        TweenMax.to(element, g.fillSpeed, { fill: "#FFF" });
                     });
                 }
 
                 function makeSwatches() {
                     console.log('makeSwatches');
-                    const swatchHolder = document.createElement('ol');
-                    swatchHolder.className = 'swatchHolder';
-                    swatchHolder.style.position = 'fixed';
-                    swatchHolder.style.bottom = '0px';
-                    swatchHolder.style.right = '0px';
-                    swatchHolder.style.listStyleType = 'none';
-                    swatchHolder.style.textAlign = 'center';
-                    swatchHolder.style.letterSpacing = '1px';
-                    swatchHolder.style.fontFamily = 'Arial';
-                    swatchHolder.style.display = 'flex';  // Changed to flexbox
-                    swatchHolder.style.flexDirection = 'row';  // Makes it horizontal
-                    swatchHolder.style.flexWrap = 'wrap';  // Allows wrapping if needed
-                    swatchHolder.style.justifyContent = 'center'; // Centers the swatches
-                    swatchHolder.style.alignItems = 'center';
-                    swatchHolder.style.padding = '15px';
-                    swatchHolder.style.width = '100vw';  // Adjust width dynamically
-                    swatchHolder.style.maxWidth = '100%'; // Prevents overflow
-                    swatchHolder.style.borderRadius = '20px';
-                    swatchHolder.style.color = '#232323';
-                    swatchHolder.style.color = '#232323';
-                    swatchHolder.style.border = '0px';
-                    document.querySelector('.holder').appendChild(swatchHolder);
+                    g.swatchHolder = document.createElement('ol');
+                    g.swatchHolder.className = 'swatchHolder';
+                    g.swatchHolder.style.position = 'sticky';
+                    g.swatchHolder.style.bottom = '0px';
+                    g.swatchHolder.style.right = '0px';
+                    g.swatchHolder.style.listStyleType = 'none';
+                    g.swatchHolder.style.textAlign = 'center';
+                    g.swatchHolder.style.letterSpacing = '1px';
+                    g.swatchHolder.style.fontFamily = 'Arial';
+                    g.swatchHolder.style.display = 'flex';  // Changed to flexbox
+                    g.swatchHolder.style.flexDirection = 'row';  // Makes it horizontal
+                    g.swatchHolder.style.flexWrap = 'wrap';  // Allows wrapping if needed
+                    g.swatchHolder.style.justifyContent = 'center'; // Centers the swatches
+                    g.swatchHolder.style.alignItems = 'center';
+                    g.swatchHolder.style.padding = '15px';
+                    g.swatchHolder.style.width = '100vw';  // Adjust width dynamically
+                    g.swatchHolder.style.maxWidth = '100%'; // Prevents overflow
+                    g.swatchHolder.style.borderRadius = '20px';
+                    g.swatchHolder.style.color = '#232323';
+                    g.swatchHolder.style.color = '#232323';
+                    g.swatchHolder.style.border = '0px';
+                    document.querySelector('.holder').appendChild(g.swatchHolder);
 
+                    
+                    g.colorHolder = document.createElement('li');
+                    g.colorHolder.className = 'colorHolder';
+                    g.colorHolder.style.backgroundColor = '#FFFFFF';
+                    g.colorHolder.style.width = '100%';
+                    g.colorHolder.style.lineHeight = '100%';
+                    g.colorHolder.style.padding = '10px 0px';
+                    g.colorHolder.style.margin = '0px auto 15px auto';
+                    g.colorHolder.style.cursor = 'pointer';
+                    g.colorHolder.style.borderRadius = '20px';
+                    g.swatchHolder.appendChild(g.colorHolder);
 
-                    colorHolder = document.createElement('li');
-                    colorHolder.className = 'colorHolder';
-                    colorHolder.style.backgroundColor = '#FFFFFF';
-                    colorHolder.style.width = '100%';
-                    colorHolder.style.lineHeight = '100%';
-                    colorHolder.style.padding = '10px 0px';
-                    colorHolder.style.margin = '0px auto 15px auto';
-                    colorHolder.style.cursor = 'pointer';
-                    colorHolder.style.borderRadius = '20px';
-                    swatchHolder.appendChild(colorHolder);
-
-                    colors.forEach(color => {
+                    g.colors.forEach(color => {
                         const swatch = document.createElement('li');
                         swatch.style.backgroundColor = color;
                         swatch.dataset.color = color;
@@ -193,39 +218,44 @@ export default function ColorPage( { params }: { params: Promise<{ id: string }>
                         swatch.addEventListener('click', swatchClick);
                         // swatch.addEventListener('mouseenter', colorRollover);
                         // swatch.addEventListener('mouseleave', colorRollover);
-                        swatchHolder.appendChild(swatch);
+                        g.swatchHolder.appendChild(swatch);
                     });
 
-                    const swatchHeight = colorHolder.offsetHeight + colorHolder.offsetTop;
-                    closeOffset = swatchHeight - swatchHolder.offsetHeight;
+                    const swatchHeight = g.colorHolder.offsetHeight + g.colorHolder.offsetTop;
+                    g.closeOffset = swatchHeight - g.swatchHolder.offsetHeight;
 
                     // swatchHolder.addEventListener('mouseenter', swatchMove);
                     // swatchHolder.addEventListener('mouseleave', swatchMove);
                     // swatchUp = { css: { bottom: '0px' } };
-                    // swatchDown = { css: { bottom: closeOffset } };
+                    // swatchDown = { css: { bottom: g.closeOffset } };
                 }
 
                 function makeSVGcolor(svgURL) {
-                    mainHolder = document.getElementById('ActivityDIV');
+                    g.mainHolder = document.getElementById('ActivityDIV');
                     fetch(svgURL)
                         .then(response => response.text())
                         .then(svgText => {
-                            mainHolder.innerHTML = svgText;
+                            g.mainHolder.innerHTML = svgText;
                             console.log("svgText:")
                             console.log(svgText);
-                            svgObject = document.querySelector('svg');
-                            svgColor = Array.from(svgObject.querySelectorAll('g#Color > *'));
-                            svgOutline = Array.from(svgObject.querySelectorAll('g:nth-child(1) > *'));
-                            svgColor.forEach(el => el.addEventListener('click', colorMe));
-                            makeSwatches();
+                            g.svgObject = document.querySelector('svg');
+                            g.svgColor = Array.from(g.svgObject.querySelectorAll('g#Color > *'));
+                            g.svgOutline = Array.from(g.svgObject.querySelectorAll('g:nth-child(1) > *'));
+                            g.svgColor.forEach(el => el.addEventListener('click', colorMe));
+                            if(g.swatchHolder == null) {
+                                makeSwatches();
+                            }
+                            else {
+                                document.querySelector('.holder').appendChild(g.swatchHolder);
+                            }
                         });
                 }
 
-                btnRandom.addEventListener('click', svgRandom);
-                btnClear.addEventListener('click', svgClear);
-                btnDownload.addEventListener('click', () => {
-                    download();
-                });
+                //btnRandom.addEventListener('click', svgRandom);
+                //btnClear.addEventListener('click', svgClear);
+                // btnDownload.addEventListener('click', () => {
+                //     download();
+                // });
 
                 `}
             </Script>
