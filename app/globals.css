@@ -95,6 +95,11 @@ body {
   background: #b33a6d;
 }
 
+button:disabled {
+  color: gray;
+  cursor: not-allowed;
+}
+
 .btnRandom {}
 
 .btnClear {
