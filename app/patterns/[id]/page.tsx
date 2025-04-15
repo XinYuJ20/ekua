@@ -5,11 +5,14 @@ import { patterns } from "@/app/pattern_data";
 import { use } from 'react';
 import NotFoundPage from "@/app/not-found";
 import BottomNav from "@/app/bottom-nav";
+import { get } from "http";
+import { useRouter } from 'next/navigation';
 
 export default function ColorPage( { params }: { params: Promise<{ id: string }> } ) {
     const { id } = use(params); 
     console.log(params)
     const pattern = patterns.find(p => p.id == id);
+    const router = useRouter();
 
     if(!pattern) {
          return <NotFoundPage/>
@@ -28,6 +31,7 @@ export default function ColorPage( { params }: { params: Promise<{ id: string }>
     // https://s3-us-west-2.amazoreact-router-domnaws.com/s.cdpn.io/40041/cheshire.svg
     return (
     <>
+        <h1 className="text-2xl my-8 font-extrabold text-black tracking-wide uppercase text-center">COLOR YOUR PATTERN</h1>
             <div className="holder">
 
                 <div id="imageonly"></div>
@@ -44,13 +48,16 @@ export default function ColorPage( { params }: { params: Promise<{ id: string }>
             </div>
             <BottomNav 
                 leftButText="BACK"
-                leftLink="/" 
+                leftOnClick= {() => router.push("/patterns")} 
+                leftClickable = {true}
                 rightButText="NEXT"
-                rightLink={"/" /*needs link to new page TT*/}></BottomNav>
+                rightOnClick={() => router.push("/patterns/" + id + "/preview")}
+                rightClickable={true}
+                ></BottomNav>
 
             <Script>
                 {`
-                console.clear();
+                //console.clear();
                 console.log('svgColor');
 
                 // var colorHolder, swatchHolder;
@@ -80,7 +87,9 @@ export default function ColorPage( { params }: { params: Promise<{ id: string }>
                     chosenColor: '#D60032',
                     fillSpeed: 0.15,
                     colors: ['#D60032', '#FFE208', '#C20ADD', '#00D420', '#2EFFEF', '#FF6700', '#283CEA'],
-                    closeOffset: null
+                    closeOffset: null,
+                    imgURL: null,
+                    coloredURL: null
                 };
                 }
                 var g = window._svgColorGlobals;
@@ -228,27 +237,44 @@ export default function ColorPage( { params }: { params: Promise<{ id: string }>
                     // swatchHolder.addEventListener('mouseleave', swatchMove);
                     // swatchUp = { css: { bottom: '0px' } };
                     // swatchDown = { css: { bottom: g.closeOffset } };
+                    
                 }
 
                 function makeSVGcolor(svgURL) {
-                    g.mainHolder = document.getElementById('ActivityDIV');
-                    fetch(svgURL)
-                        .then(response => response.text())
-                        .then(svgText => {
-                            g.mainHolder.innerHTML = svgText;
-                            console.log("svgText:")
-                            console.log(svgText);
-                            g.svgObject = document.querySelector('svg');
-                            g.svgColor = Array.from(g.svgObject.querySelectorAll('g#Color > *'));
-                            g.svgOutline = Array.from(g.svgObject.querySelectorAll('g:nth-child(1) > *'));
-                            g.svgColor.forEach(el => el.addEventListener('click', colorMe));
-                            if(g.swatchHolder == null) {
-                                makeSwatches();
-                            }
-                            else {
-                                document.querySelector('.holder').appendChild(g.swatchHolder);
-                            }
-                        });
+                    //debugger;
+                    console.log("makeSVGcolor called");
+                    console.log(g.imgURL)
+                    console.log(svgURL)
+                    console.log(g)
+                    if (g.imgURL != svgURL || g.imgURL == null || g.svgObject == null) {
+                        g.imgURL = svgURL;
+                        g.mainHolder = document.getElementById('ActivityDIV');
+                        fetch(svgURL)
+                            .then(response => {
+                                console.log("Response received:", response);
+                                return response.text();
+                            })
+                            .then(svgText => {
+                                //debugger;
+                                g.mainHolder.innerHTML = svgText;
+                                g.svgObject = document.querySelector('svg');
+                                const svg = document.querySelector('svg');
+                                g.svgColor = Array.from(g.svgObject.querySelectorAll('g#Color > *'));
+                                g.svgOutline = Array.from(g.svgObject.querySelectorAll('g:nth-child(1) > *'));
+                                g.svgColor.forEach(el => el.addEventListener('click', colorMe));
+                                if (g.swatchHolder == null) {
+                                    makeSwatches();
+                                }
+                                else {
+                                    document.querySelector('.holder').appendChild(g.swatchHolder);
+                                }
+                            }); 
+
+                    }
+                    else {
+                        document.querySelector('.holder').appendChild(g.mainHolder);
+                        document.querySelector('.holder').appendChild(g.swatchHolder);
+                    }
                 }
 
                 //btnRandom.addEventListener('click', svgRandom);
@@ -262,3 +288,4 @@ export default function ColorPage( { params }: { params: Promise<{ id: string }>
         </>
   );
 }
+

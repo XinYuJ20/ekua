@@ -4,9 +4,11 @@ import Image from 'next/image';
 import Link from 'next/link';
 import BottomNav from "../bottom-nav";
 import { useState } from "react";
+import { useRouter } from 'next/navigation';
 
 export default function PatternSelect({patterns}: {patterns: Pattern[]}) {
     const [imageId, setImageId] = useState("-1");
+    const router = useRouter();
 
     return (
         <>
@@ -27,9 +29,11 @@ export default function PatternSelect({patterns}: {patterns: Pattern[]}) {
         
             <BottomNav 
                 leftButText="BACK"
-                leftLink="/" 
+                leftOnClick= {()=> {router.push("/")}} 
+                leftClickable={true}
                 rightButText="NEXT"
-                rightLink={imageId == "-1" ? "-1" : "/patterns/" + imageId}
+                rightOnClick={imageId == "-1" ? ()=> {router.push("#")} : () => {router.push("/patterns/" + imageId)}}
+                rightClickable={imageId == "-1" ? false : true}
             ></BottomNav>
         </>
     )

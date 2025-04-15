@@ -1,5 +1,5 @@
-
-import {patterns, Pattern} from "../pattern_data";
+'use client'
+import {patterns} from "../pattern_data";
 import PatternSelect from "./pattern-select";
 
 export default function PatternPage() {

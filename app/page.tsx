@@ -9,6 +9,11 @@ export default function Home() {
     router.push('/patterns'); // Navigate to /patterns when the button is clicked
   };
 
+  if(window._svgColorGlobals) {
+    console.log("deleting svgColorglobals")
+    //delete window._svgColorGlobals;
+  }
+
   return (
     <div className="flex flex-col items-center justify-center min-h-screen p-8">
   <h1 className="text-9xl font-extrabold text-black tracking-wide uppercase text-center">
