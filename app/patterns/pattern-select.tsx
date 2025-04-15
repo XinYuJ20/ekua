@@ -12,7 +12,7 @@ export default function PatternSelect({patterns}: {patterns: Pattern[]}) {
 
     return (
         <>
-            <div className="grid grid-flow-row grid-cols-2 gap-6 mx-6 justify-self-center">
+            <div className="grid grid-flow-row grid-cols-2 gap-6 mx-8 justify-self-center">
                 {patterns.map(pattern => (
                     <button key={pattern.id} 
                             onClick={() => setImageId(pattern.id)}>

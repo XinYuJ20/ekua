@@ -31,7 +31,7 @@ export default function ColorPage( { params }: { params: Promise<{ id: string }>
     // https://s3-us-west-2.amazoreact-router-domnaws.com/s.cdpn.io/40041/cheshire.svg
     return (
     <>
-        <h1 className="text-2xl my-8 font-extrabold text-black tracking-wide uppercase text-center">COLOR YOUR PATTERN</h1>
+        <h1 className="text-2xl my-8 mx-8 font-extrabold text-black tracking-wide uppercase text-left">COLOR YOUR PATTERN</h1>
             <div className="holder">
 
                 <div id="imageonly"></div>

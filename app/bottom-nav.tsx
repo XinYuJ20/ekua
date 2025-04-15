@@ -1,4 +1,3 @@
-import Link from 'next/link';
 import { MouseEventHandler } from 'react';
 
 export default function BottomNav({leftButText, leftOnClick, leftClickable, rightButText, rightOnClick, rightClickable}: 

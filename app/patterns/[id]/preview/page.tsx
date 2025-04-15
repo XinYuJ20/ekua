@@ -56,7 +56,7 @@ export default function ColorPage( { params }: { params: Promise<{ id: string }>
     
     return(
         <>
-            <h1 className="text-2xl my-8 font-extrabold text-black tracking-wide uppercase text-center">PREVIEW YOUR PATTERN</h1>
+            <h1 className="text-2xl my-8 mx-8 font-extrabold text-black tracking-wide uppercase text-left">PREVIEW YOUR PATTERN</h1>
 
             <div className="grid grid-flow-row grid-cols-2 justify-self-center">
                 <PreviewImage imageUrl={window._svgColorGlobals.coloredURL}></PreviewImage>
