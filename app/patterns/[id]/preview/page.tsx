@@ -9,16 +9,15 @@ export default function ColorPage( { params }: { params: Promise<{ id: string }>
     console.log(params)
     const pattern = patterns.find(p => p.id == id);
     const router = useRouter();
-    
     if(window._svgColorGlobals == undefined) {
         redirect("/");
     }
+    
     const g = window._svgColorGlobals;
     const svg = window._svgColorGlobals.svgObject;
     const svgData = new XMLSerializer().serializeToString(svg);
     const svgBlob = new Blob([svgData], { type: "image/svg+xml;charset=utf-8" });
     window._svgColorGlobals.coloredURL = URL.createObjectURL(svgBlob);
-    
     const download = () => {
                     const g = window._svgColorGlobals;
                     const svg = window._svgColorGlobals.svgObject;
@@ -39,7 +38,7 @@ export default function ColorPage( { params }: { params: Promise<{ id: string }>
                             const formData = new FormData();
                             formData.append("image", blob, "coloringpage.png");
 
-                            fetch(" https://e2f5-2620-8d-8000-1074-c858-d39f-580d-ad3a.ngrok-free.app/upload", {
+                            fetch("https://c62d-38-49-72-99.ngrok-free.app/upload", {
                                 method: "POST",
                                 body: formData,
                             })
