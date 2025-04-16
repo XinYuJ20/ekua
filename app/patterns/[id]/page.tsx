@@ -148,7 +148,7 @@ export default function ColorPage( { params }: { params: Promise<{ id: string }>
                             const formData = new FormData();
                             formData.append("image", blob, "coloringpage.png");
 
-                            fetch("https://c62d-38-49-72-99.ngrok-free.app/upload", {
+                            fetch("https://9ce4-8-9-95-158.ngrok-free.app/upload", {
                                 method: "POST",
                                 body: formData,
                             })

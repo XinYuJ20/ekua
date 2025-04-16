@@ -2,17 +2,11 @@
 import Script from "next/script";
 import { useState, useEffect} from "react";
 
+interface ColorPageProps {
+    imgUrl: string;
+}
 
-
-export default function ColorPage({imgUrl}: {imgUrl: string}) {
-    //const [svgUrl, setSvgUrl] = useState('https://assets.codepen.io/5936329/Coloringbook1.svg');
-    
-    //joy's test piece: 
-    // https://raw.githubusercontent.com/zouevelyn/ekua/refs/heads/main/app/color-test/color-test1-05.svg
-    //fish test piece: 
-    // https://raw.githubusercontent.com/zouevelyn/ekua/refs/heads/main/app/color-test/Fish%20Test.svg
-    // cat test piece: 
-    // https://raw.githubusercontent.com/zouevelyn/ekua/refs/heads/main/app/color-test/Not_Today.svg
+export default function ColorPage({ imgUrl }: ColorPageProps) {
     const testVector = "https://raw.githubusercontent.com/zouevelyn/ekua/refs/heads/main/app/color-test/color-test1-05.svg";
     const [svgUrl, setSvgUrl] = useState(testVector);
 
@@ -20,9 +14,13 @@ export default function ColorPage({imgUrl}: {imgUrl: string}) {
         makeSVGcolor(svgUrl);
     }, [svgUrl]);
 
-    // https://assets.codepen.io/5936329/Coloringbook1.svg
-    // https://assets.codepen.io/40041/crest.svg
-    // https://s3-us-west-2.amazonaws.com/s.cdpn.io/40041/cheshire.svg
+    const checkFields = () => {
+        // Ensure you're passing valid types
+        console.log("Props:", imgUrl);
+    };
+
+    checkFields();  // Use the function where necessary
+    
     return (
     <>
             <div className="holder">
