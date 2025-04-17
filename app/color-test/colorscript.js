@@ -66,11 +66,18 @@ function makeSwatches() {
     swatchHolder.style.textAlign = 'center';
     swatchHolder.style.letterSpacing = '1px';
     swatchHolder.style.fontFamily = 'Arial';
-    swatchHolder.style.display = 'inline-block';
+
+    swatchHolder.style.display = 'flex';
+    swatchHolder.style.flexWrap = 'wrap';
+
     swatchHolder.style.padding = '15px';
-    swatchHolder.style.width = '160px';
+    swatchHolder.style.width = '120px';
     swatchHolder.style.borderRadius = '35px 35px 35px 35px';
     swatchHolder.style.color = '#232323';
+
+    swatchHolder.style.justifyContent = 'center'; // optional, for centering
+    swatchHolder.style.gap = '6px'; // spacing between swatches
+
     swatchHolder.style.backgroundImage = 'url("https://assets.codepen.io/5936329/background-code.png")';
     swatchHolder.style.border = '0px';
     document.body.appendChild(swatchHolder);
@@ -91,6 +98,9 @@ function makeSwatches() {
         const swatch = document.createElement('li');
         swatch.style.backgroundColor = color;
         swatch.dataset.color = color;
+
+        swatch.style.flex = '0 0 25px'; // fixed size
+
         swatch.style.height = '25px';
         swatch.style.width = '25px';
         swatch.style.margin = '2px';

@@ -51,7 +51,7 @@ export default function ColorPage({ imgUrl }: ColorPageProps) {
                 let swatchUp, swatchDown;
                 const fillSpeed = 0.15;
                 let chosenColor = '#FFFFFF';
-                const colors = ['#D60032', '#FFE208', '#C20ADD', '#00D420', '#2EFFEF', '#FF6700', '#283CEA' ];
+                const colors = ['#D60032','#FFFFFF', '#FFE208', '#C20ADD', '#00D420', '#2EFFEF', '#FF6700', '#283CEA' ];
                 let closeOffset;
                 
                 let selectedColor = null;
