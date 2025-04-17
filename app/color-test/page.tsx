@@ -4,7 +4,7 @@ import { useState, useEffect} from "react";
 
 
 
-export default function ColorPage({imgUrl}: {imgUrl: string}) {
+export default function ColorPage() {
     //const [svgUrl, setSvgUrl] = useState('https://assets.codepen.io/5936329/Coloringbook1.svg');
     
     //joy's test piece: 

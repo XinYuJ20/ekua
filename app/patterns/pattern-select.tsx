@@ -15,7 +15,8 @@ export default function PatternSelect({patterns}: {patterns: Pattern[]}) {
             <div className="grid grid-flow-row grid-cols-2 gap-6 mx-8 justify-self-center">
                 {patterns.map(pattern => (
                     <button key={pattern.id} 
-                            onClick={() => setImageId(pattern.id)}>
+                            onClick={() => setImageId(pattern.id)}
+                            className="justify-self-center">
                         <Image
                             src={pattern.imageUrl}
                             width={pattern.imageWidth}

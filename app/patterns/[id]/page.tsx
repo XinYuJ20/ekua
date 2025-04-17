@@ -51,7 +51,13 @@ export default function ColorPage( { params }: { params: Promise<{ id: string }>
                 leftOnClick= {() => router.push("/patterns")} 
                 leftClickable = {true}
                 rightButText="NEXT"
-                rightOnClick={() => router.push("/patterns/" + id + "/preview")}
+                rightOnClick={() => {
+                    const svg = window._svgColorGlobals.svgObject;
+                    const svgData = new XMLSerializer().serializeToString(svg);
+                    const svgBlob = new Blob([svgData], { type: "image/svg+xml;charset=utf-8" });
+                    window._svgColorGlobals.coloredURL = URL.createObjectURL(svgBlob);
+                    router.push("/patterns/" + id + "/preview")
+                }}
                 rightClickable={true}
                 ></BottomNav>
 
@@ -258,6 +264,8 @@ export default function ColorPage( { params }: { params: Promise<{ id: string }>
                                 //debugger;
                                 g.mainHolder.innerHTML = svgText;
                                 g.svgObject = document.querySelector('svg');
+                                g.svgObject.setAttribute("width", g.svgObject.clientWidth);
+                                g.svgObject.setAttribute("height", g.svgObject.clientHeight);
                                 const svg = document.querySelector('svg');
                                 g.svgColor = Array.from(g.svgObject.querySelectorAll('g#Color > *'));
                                 g.svgOutline = Array.from(g.svgObject.querySelectorAll('g:nth-child(1) > *'));
