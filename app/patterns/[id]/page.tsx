@@ -92,7 +92,7 @@ export default function ColorPage( { params }: { params: Promise<{ id: string }>
                     selectedColor: null,
                     chosenColor: '#D60032',
                     fillSpeed: 0.15,
-                    colors: ['#D60032', '#FFE208', '#C20ADD', '#00D420', '#2EFFEF', '#FF6700', '#283CEA'],
+                    colors: ['  #EA005F', '#FF7D26', '#FFDA00', '#4ADD3A', '#1935D8', '#C20ADD'],
                     closeOffset: null,
                     imgURL: null,
                     coloredURL: null
@@ -154,7 +154,7 @@ export default function ColorPage( { params }: { params: Promise<{ id: string }>
                             const formData = new FormData();
                             formData.append("image", blob, "coloringpage.png");
 
-                            fetch("https://c62d-38-49-72-99.ngrok-free.app/upload", {
+                            fetch("https://9ce4-8-9-95-158.ngrok-free.app/upload", {
                                 method: "POST",
                                 body: formData,
                             })
@@ -199,8 +199,8 @@ export default function ColorPage( { params }: { params: Promise<{ id: string }>
                     g.swatchHolder.style.flexWrap = 'wrap';  // Allows wrapping if needed
                     g.swatchHolder.style.justifyContent = 'center'; // Centers the swatches
                     g.swatchHolder.style.alignItems = 'center';
-                    g.swatchHolder.style.padding = '15px';
-                    g.swatchHolder.style.width = '100vw';  // Adjust width dynamically
+                    // g.swatchHolder.style.padding = '15px';
+                    g.swatchHolder.style.width = '100%';  // Adjust width dynamically
                     g.swatchHolder.style.maxWidth = '100%'; // Prevents overflow
                     g.swatchHolder.style.borderRadius = '20px';
                     g.swatchHolder.style.color = '#232323';
@@ -225,11 +225,13 @@ export default function ColorPage( { params }: { params: Promise<{ id: string }>
                         swatch.style.backgroundColor = color;
                         swatch.dataset.color = color;
                         swatch.style.height = '50px';
-                        swatch.style.width = '50px';
+                        swatch.style.width = '33%';
+                        swatch.style.paddingBottom = '25%';
                         swatch.style.margin = '0px';
                         swatch.style.display = 'inline-block';
                         swatch.style.cursor = 'pointer';
                         swatch.style.borderRadius = '0px';
+                        
                         swatch.addEventListener('click', swatchClick);
                         // swatch.addEventListener('mouseenter', colorRollover);
                         // swatch.addEventListener('mouseleave', colorRollover);
