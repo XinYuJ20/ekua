@@ -7,6 +7,8 @@ import NotFoundPage from "@/app/not-found";
 import BottomNav from "@/app/bottom-nav";
 import { get } from "http";
 import { useRouter } from 'next/navigation';
+import Image from 'next/image';
+import eraser from './eraser-icon.png'
 
 export default function ColorPage( { params }: { params: Promise<{ id: string }> } ) {
     const { id } = use(params); 
@@ -25,6 +27,10 @@ export default function ColorPage( { params }: { params: Promise<{ id: string }>
     useEffect(() => {
         makeSVGcolor(svgUrl);
     }, [svgUrl]);
+
+    const eraserSwatchClick = () => {
+        window._svgColorGlobals.chosenColor = "FFFFFF";
+    }
 
     // https://assets.codepen.io/5936329/Coloringbook1.svg
     // https://assets.codepen.io/40041/crest.svg
@@ -46,20 +52,35 @@ export default function ColorPage( { params }: { params: Promise<{ id: string }>
                     <a id="btnDownload" className="button">Upload</a>
                 </div> */}
             </div>
-            <BottomNav 
-                leftButText="BACK"
-                leftOnClick= {() => router.push("/patterns")} 
-                leftClickable = {true}
-                rightButText="NEXT"
-                rightOnClick={() => {
-                    const svg = window._svgColorGlobals.svgObject;
-                    const svgData = new XMLSerializer().serializeToString(svg);
-                    const svgBlob = new Blob([svgData], { type: "image/svg+xml;charset=utf-8" });
-                    window._svgColorGlobals.coloredURL = URL.createObjectURL(svgBlob);
-                    router.push("/patterns/" + id + "/preview")
-                }}
-                rightClickable={true}
-                ></BottomNav>
+            <div className="bottomBar fixed bottom-0 left-0 w-full">
+                <div className="swatchBar">
+                    <div className='swatches inline-block'></div>
+                    <div className="eraser inline-block">
+                        <Image
+                            src={eraser}
+                            width={150}
+                            height={150}
+                            alt={"Erase"}
+                            onClick={eraserSwatchClick}
+                            className="w-full h-full"
+                        />
+                    </div>
+                </div>
+                <BottomNav 
+                    leftButText="BACK"
+                    leftOnClick= {() => router.push("/patterns")} 
+                    leftClickable = {true}
+                    rightButText="NEXT"
+                    rightOnClick={() => {
+                        const svg = window._svgColorGlobals.svgObject;
+                        const svgData = new XMLSerializer().serializeToString(svg);
+                        const svgBlob = new Blob([svgData], { type: "image/svg+xml;charset=utf-8" });
+                        window._svgColorGlobals.coloredURL = URL.createObjectURL(svgBlob);
+                        router.push("/patterns/" + id + "/preview")
+                    }}
+                    rightClickable={true}
+                    ></BottomNav>
+            </div>
 
             <Script>
                 {`
@@ -206,19 +227,19 @@ export default function ColorPage( { params }: { params: Promise<{ id: string }>
                     g.swatchHolder.style.color = '#232323';
                     g.swatchHolder.style.color = '#232323';
                     g.swatchHolder.style.border = '0px';
-                    document.querySelector('.holder').appendChild(g.swatchHolder);
+                    document.querySelector('.swatches').appendChild(g.swatchHolder);
 
                     
-                    g.colorHolder = document.createElement('li');
-                    g.colorHolder.className = 'colorHolder';
-                    g.colorHolder.style.backgroundColor = '#FFFFFF';
-                    g.colorHolder.style.width = '100%';
-                    g.colorHolder.style.lineHeight = '100%';
-                    g.colorHolder.style.padding = '10px 0px';
-                    g.colorHolder.style.margin = '0px auto 15px auto';
-                    g.colorHolder.style.cursor = 'pointer';
-                    g.colorHolder.style.borderRadius = '20px';
-                    g.swatchHolder.appendChild(g.colorHolder);
+                    // g.colorHolder = document.createElement('li');
+                    // g.colorHolder.className = 'colorHolder';
+                    // g.colorHolder.style.backgroundColor = '#FFFFFF';
+                    // g.colorHolder.style.width = '100%';
+                    // g.colorHolder.style.lineHeight = '100%';
+                    // g.colorHolder.style.padding = '10px 0px';
+                    // g.colorHolder.style.margin = '0px auto 15px auto';
+                    // g.colorHolder.style.cursor = 'pointer';
+                    // g.colorHolder.style.borderRadius = '20px';
+                    // g.swatchHolder.appendChild(g.colorHolder);
 
                     g.colors.forEach(color => {
                         const swatch = document.createElement('li');
@@ -238,8 +259,11 @@ export default function ColorPage( { params }: { params: Promise<{ id: string }>
                         g.swatchHolder.appendChild(swatch);
                     });
 
-                    const swatchHeight = g.colorHolder.offsetHeight + g.colorHolder.offsetTop;
-                    g.closeOffset = swatchHeight - g.swatchHolder.offsetHeight;
+
+                    // const swatchHeight = g.colorHolder.offsetHeight + g.colorHolder.offsetTop;
+                    // g.closeOffset = swatchHeight - g.swatchHolder.offsetHeight;
+
+                    g.closeOffset = g.swatchHolder.offsetHeight;
 
                     // swatchHolder.addEventListener('mouseenter', swatchMove);
                     // swatchHolder.addEventListener('mouseleave', swatchMove);
@@ -289,7 +313,7 @@ export default function ColorPage( { params }: { params: Promise<{ id: string }>
 
                 //btnRandom.addEventListener('click', svgRandom);
                 //btnClear.addEventListener('click', svgClear);
-                // btnDownload.addEventListener('click', () => {
+                //btnDownload.addEventListener('click', () => {
                 //     download();
                 // });
 
