@@ -107,6 +107,7 @@ export default function ColorPage( { params }: { params: Promise<{ id: string }>
 
             <canvas id="previewImg" height="450" className="m-auto"></canvas>
 
+            <div className='fixed bottom-0 w-full'>
             <BottomNav 
                 leftButText="BACK"
                 leftOnClick={() => router.push("/patterns/" + id)} 
@@ -115,6 +116,7 @@ export default function ColorPage( { params }: { params: Promise<{ id: string }>
                 rightOnClick={download}
                 rightClickable={true}
             ></BottomNav>
+            </div>
         </>
     );
 }

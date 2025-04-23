@@ -10,7 +10,7 @@ export default function BottomNav({leftButText, leftOnClick, leftClickable, righ
         rightClickable: boolean}) {
 
     return (
-        <div className="nav bottom-0 left-0 w-full h-[60px] bg-black text-white py-4 text-center text-lg font-bold">
+        <div className="bottom-0 left-0 w-full h-[60px] bg-black text-white py-4 text-center text-lg font-bold">
             <button className="float-left ml-8" onClick={leftOnClick} disabled={!leftClickable}>
                 {leftButText}
             </button>

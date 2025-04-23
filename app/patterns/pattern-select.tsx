@@ -27,7 +27,8 @@ export default function PatternSelect({patterns}: {patterns: Pattern[]}) {
                     </button>
                 ))}
             </div>
-        
+
+            <div className='fixed bottom-0 w-full'>
             <BottomNav 
                 leftButText="BACK"
                 leftOnClick= {()=> {router.push("/")}} 
@@ -36,6 +37,7 @@ export default function PatternSelect({patterns}: {patterns: Pattern[]}) {
                 rightOnClick={imageId == "-1" ? ()=> {router.push("#")} : () => {router.push("/patterns/" + imageId)}}
                 rightClickable={imageId == "-1" ? false : true}
             ></BottomNav>
+            </div>
         </>
     )
 }

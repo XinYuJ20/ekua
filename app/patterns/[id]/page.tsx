@@ -8,7 +8,7 @@ import BottomNav from "@/app/bottom-nav";
 import { get } from "http";
 import { useRouter } from 'next/navigation';
 import Image from 'next/image';
-import eraser from './eraser-icon.png'
+//import eraser from './eraser-icon.png'
 
 export default function ColorPage( { params }: { params: Promise<{ id: string }> } ) {
     const { id } = use(params); 
@@ -28,8 +28,19 @@ export default function ColorPage( { params }: { params: Promise<{ id: string }>
         makeSVGcolor(svgUrl);
     }, [svgUrl]);
 
-    const eraserSwatchClick = () => {
+    const eraserSwatchClick = (event : React.SyntheticEvent<HTMLDivElement>) => {
+        const existingBox = document.querySelector('.white-box');
+        const existingBBox = document.querySelector('.black-box');
+        if (existingBox) {
+            existingBox.remove();
+        }
+        if (existingBBox) {
+            existingBBox.remove();
+        }
         window._svgColorGlobals.chosenColor = "FFFFFF";
+        const blackBox = document.createElement('div');
+        blackBox.className = 'black-box';
+        event.currentTarget.appendChild(blackBox);
     }
 
     // https://assets.codepen.io/5936329/Coloringbook1.svg
@@ -55,15 +66,16 @@ export default function ColorPage( { params }: { params: Promise<{ id: string }>
             <div className="bottomBar fixed bottom-0 left-0 w-full">
                 <div className="swatchBar">
                     <div className='swatches inline-block'></div>
-                    <div className="eraser inline-block">
-                        <Image
+                    <div onClick={eraserSwatchClick}
+                        className={"eraser inline-block bg-[url('../public/eraser-icon.png')] bg-contain bg-no-repeat bg-center"} >
+                        {/* <Image
                             src={eraser}
                             width={150}
                             height={150}
                             alt={"Erase"}
                             onClick={eraserSwatchClick}
                             className="w-full h-full"
-                        />
+                        /> */}
                     </div>
                 </div>
                 <BottomNav 
@@ -129,6 +141,11 @@ export default function ColorPage( { params }: { params: Promise<{ id: string }>
                         const existingBox = g.selectedColor.querySelector('.white-box');
                         if (existingBox) {
                             existingBox.remove();
+                        }
+                            
+                        const existingBBox = document.querySelector('.black-box');
+                        if (existingBBox) {
+                            existingBBox.remove();
                         }
                     }
 
@@ -241,13 +258,14 @@ export default function ColorPage( { params }: { params: Promise<{ id: string }>
                     // g.colorHolder.style.borderRadius = '20px';
                     // g.swatchHolder.appendChild(g.colorHolder);
 
+                    const eraser = document.querySelector('.eraser');
                     g.colors.forEach(color => {
                         const swatch = document.createElement('li');
                         swatch.style.backgroundColor = color;
                         swatch.dataset.color = color;
-                        swatch.style.height = '50px';
+                        swatch.style.height = eraser.offsetHeight / 2 + 'px';
                         swatch.style.width = '33%';
-                        swatch.style.paddingBottom = '25%';
+                        //swatch.style.paddingBottom = eraser.offsetHeight / 2 + 'px';
                         swatch.style.margin = '0px';
                         swatch.style.display = 'inline-block';
                         swatch.style.cursor = 'pointer';
@@ -300,14 +318,14 @@ export default function ColorPage( { params }: { params: Promise<{ id: string }>
                                     makeSwatches();
                                 }
                                 else {
-                                    document.querySelector('.holder').appendChild(g.swatchHolder);
+                                    document.querySelector('.swatches').appendChild(g.swatchHolder);
                                 }
                             }); 
 
                     }
                     else {
                         document.querySelector('.holder').appendChild(g.mainHolder);
-                        document.querySelector('.holder').appendChild(g.swatchHolder);
+                        document.querySelector('.swatches').appendChild(g.swatchHolder);
                     }
                 }
 
