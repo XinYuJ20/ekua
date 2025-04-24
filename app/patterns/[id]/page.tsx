@@ -123,9 +123,9 @@ export default function ColorPage( { params }: { params: Promise<{ id: string }>
                     svgOutline: null,
                     svgColor: null,
                     selectedColor: null,
-                    chosenColor: '#D60032',
+                    chosenColor: '#EA005F',
                     fillSpeed: 0.15,
-                    colors: ['  #EA005F', '#FF7D26', '#FFDA00', '#4ADD3A', '#1935D8', '#C20ADD'],
+                    colors: ['#EA005F', '#FF7D26', '#FFDA00', '#4ADD3A', '#1935D8', '#C20ADD'],
                     closeOffset: null,
                     imgURL: null,
                     coloredURL: null
@@ -137,16 +137,13 @@ export default function ColorPage( { params }: { params: Promise<{ id: string }>
                     g.chosenColor = event.target.dataset.color;
                     console.log(g.chosenColor);
 
-                    if (g.selectedColor) {
-                        const existingBox = g.selectedColor.querySelector('.white-box');
-                        if (existingBox) {
-                            existingBox.remove();
-                        }
-                            
-                        const existingBBox = document.querySelector('.black-box');
-                        if (existingBBox) {
-                            existingBBox.remove();
-                        }
+                    const existingBox = document.querySelector('.white-box');
+                    if (existingBox) {
+                        existingBox.remove();
+                    }
+                    const existingBBox = document.querySelector('.black-box');
+                    if (existingBBox) {
+                        existingBBox.remove();
                     }
 
                     // Set the new selected swatch
