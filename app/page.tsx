@@ -4,6 +4,7 @@ import Image from 'next/image';
 import { useRouter } from "next/navigation"; // Use useNavigate from next/navigation
 
 export default function Home() {
+
   const router = useRouter(); // Initialize the navigate function
 
   const handleNavigate = () => {
@@ -12,7 +13,9 @@ export default function Home() {
 
 
   return (
+    
     <div className="flex flex-col items-center justify-center min-h-screen p-8">
+      
       
   {/* <h1 className="text-9xl font-extrabold text-black tracking-wide uppercase text-center">
     EK<br />UA
