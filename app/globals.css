@@ -220,13 +220,10 @@ button:disabled {
 
 .white-box {
   position: relative;
-  width: 80%; /* Size of the white box */
-  height: 80%;
+  height: 70%; 
   border: 2px solid white; /* Hollow inside with a white border */
   border-radius: 0px;
-  left: 10%;  /* Center the box horizontally */
-  top: 10%;   /* Center the box vertically */
-  /* padding: 20%; */
+  margin: 10%;
   pointer-events: none; /* Ensures box doesn't block interaction */
 }
 
