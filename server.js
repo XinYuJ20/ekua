@@ -10,7 +10,7 @@ const PORT = 5000;
 app.use(cors());
 
 // Serve uploaded files statically
-app.use("/uploads", express.static(path.join(__dirname, "uploads")));
+app.use("/uploads", express.static("D:/ekua"));
 
 // Ensure "uploads" folder exists
 const fs = require("fs");
