@@ -68,14 +68,6 @@ export default function ColorPage( { params }: { params: Promise<{ id: string }>
                     <div className='swatches inline-block'></div>
                     <div onClick={eraserSwatchClick}
                         className={"eraser inline-block bg-[url('../public/eraser-icon.png')] bg-contain bg-no-repeat bg-center"} >
-                        {/* <Image
-                            src={eraser}
-                            width={150}
-                            height={150}
-                            alt={"Erase"}
-                            onClick={eraserSwatchClick}
-                            className="w-full h-full"
-                        /> */}
                     </div>
                 </div>
                 <BottomNav 
@@ -115,21 +107,21 @@ export default function ColorPage( { params }: { params: Promise<{ id: string }>
                 // let selectedColor = null;
 
                 if (!window._svgColorGlobals) {
-                window._svgColorGlobals = {
-                    mainHolder: null,
-                    colorHolder: null,
-                    swatchHolder: null,
-                    svgObject: null,
-                    svgOutline: null,
-                    svgColor: null,
-                    selectedColor: null,
-                    chosenColor: '#EA005F',
-                    fillSpeed: 0.15,
-                    colors: ['#EA005F', '#FF7D26', '#FFDA00', '#4ADD3A', '#1935D8', '#C20ADD'],
-                    closeOffset: null,
-                    imgURL: null,
-                    coloredURL: null
-                };
+                    window._svgColorGlobals = {
+                        mainHolder: null,
+                        colorHolder: null,
+                        swatchHolder: null,
+                        svgObject: null,
+                        svgOutline: null,
+                        svgColor: null,
+                        selectedColor: null,
+                        chosenColor: '#EA005F',
+                        fillSpeed: 0.15,
+                        colors: ['#EA005F', '#FF7D26', '#FFDA00', '#4ADD3A', '#1935D8', '#C20ADD'],
+                        closeOffset: null,
+                        imgURL: null,
+                        coloredURL: null
+                    };
                 }
                 var g = window._svgColorGlobals;
 
