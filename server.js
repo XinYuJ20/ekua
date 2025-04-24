@@ -10,7 +10,7 @@ const PORT = 5000;
 app.use(cors());
 
 // Serve uploaded files statically
-app.use("/uploads", express.static(path.join(__dirname, "uploads")));
+app.use("/uploads", express.static("D:/ekua"));
 
 // Ensure "uploads" folder exists
 const fs = require("fs");
@@ -22,7 +22,7 @@ if (!fs.existsSync(uploadDir)) {
 // Set up Multer for handling file uploads
 const storage = multer.diskStorage({
     destination: (req, file, cb) => {
-        cb(null, "uploads/");
+        cb(null, "D:/ekua");
     },
     filename: (req, file, cb) => {
         cb(null, Date.now() + path.extname(file.originalname)); // Unique filename
