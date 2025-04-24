@@ -22,7 +22,7 @@ if (!fs.existsSync(uploadDir)) {
 // Set up Multer for handling file uploads
 const storage = multer.diskStorage({
     destination: (req, file, cb) => {
-        cb(null, "uploads/");
+        cb(null, "D:/ekua");
     },
     filename: (req, file, cb) => {
         cb(null, Date.now() + path.extname(file.originalname)); // Unique filename
