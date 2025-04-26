@@ -40,6 +40,7 @@ app.post("/upload", upload.single("image"), (req, res) => {
 });
 
 const copyFiles = () => {
+    try{
     const files = fs.readdirSync(uploadDir); 
     files.forEach(file => {
         const sourcePath = path.join(uploadDir, file);
@@ -51,7 +52,9 @@ const copyFiles = () => {
         } else {
             console.log(`File ${file} already exists at destination.`);
         }
-    });
+        });
+    }
+catch(error){}
 };
 
 // Run the file copying function periodically (every 10 minutes)
